@@ -6,28 +6,196 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+        button {
+            position: relative;
+            border: none;
+            background: transparent;
+            padding: 0;
+            cursor: pointer;
+            outline-offset: 4px;
+            transition: filter 250ms;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            background: hsl(0deg 0% 0% / 0.25);
+            will-change: transform;
+            transform: translateY(2px);
+            transition: transform
+            600ms
+            cubic-bezier(.3, .7, .4, 1);
+        }
+
+        .edge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            background: linear-gradient(
+                    to left,
+                    hsl(123, 100%, 16%) 0%,
+                    hsl(109, 100%, 32%) 8%,
+                    hsl(109, 100%, 32%) 92%,
+                    hsl(123, 100%, 16%) 100%
+            );
+        }
+
+        .front {
+            display: block;
+            position: relative;
+            padding: 12px 27px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            color: white;
+            background: hsl(97, 100%, 36%);
+            will-change: transform;
+            transform: translateY(-4px);
+            transition: transform
+            600ms
+            cubic-bezier(.3, .7, .4, 1);
+        }
+
+        button:hover {
+            filter: brightness(110%);
+        }
+
+        button:hover .front {
+            transform: translateY(-6px);
+            transition: transform
+            250ms
+            cubic-bezier(.3, .7, .4, 1.5);
+        }
+
+        button:active .front {
+            transform: translateY(-2px);
+            transition: transform 34ms;
+        }
+
+        button:hover .shadow {
+            transform: translateY(4px);
+            transition: transform
+            250ms
+            cubic-bezier(.3, .7, .4, 1.5);
+        }
+
+        button:active .shadow {
+            transform: translateY(1px);
+            transition: transform 34ms;
+        }
+
+        button:focus:not(:focus-visible) {
+            outline: none;
+        }
+        select {
+
+            /* styling */
+            background-color: white;
+            border: thin solid blue;
+            border-radius: 4px;
+            display: inline-block;
+            font: inherit;
+            line-height: 1.5em;
+            padding: 0.5em 3.5em 0.5em 1em;
+
+            /* reset */
+
+            margin: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+
+        /* arrows */
+
+        select.classic {
+            background-image:
+                    linear-gradient(45deg, transparent 50%, blue 50%),
+                    linear-gradient(135deg, blue 50%, transparent 50%),
+                    linear-gradient(to right, skyblue, skyblue);
+            background-position:
+                    calc(100% - 20px) calc(1em + 2px),
+                    calc(100% - 15px) calc(1em + 2px),
+                    100% 0;
+            background-size:
+                    5px 5px,
+                    5px 5px,
+                    2.5em 2.5em;
+            background-repeat: no-repeat;
+        }
+
+        select.classic:focus {
+            background-image:
+                    linear-gradient(45deg, white 50%, transparent 50%),
+                    linear-gradient(135deg, transparent 50%, white 50%),
+                    linear-gradient(to right, gray, gray);
+            background-position:
+                    calc(100% - 15px) 1em,
+                    calc(100% - 20px) 1em,
+                    100% 0;
+            background-size:
+                    5px 5px,
+                    5px 5px,
+                    2.5em 2.5em;
+            background-repeat: no-repeat;
+            border-color: grey;
+            outline: 0;
+        }
+
+    </style>
 </head>
 <body>
-    <table>
+    <h1 style="display: flex; justify-content: center;">
         <#list currency_list as currency>
-            <tr>
-                <td>
-                    ${currency.id}
-                </td>
-                <td>
-                    ${currency.charCode}
-                </td>
-                <td>
-                    ${currency.nominal}
-                </td>
-                <td>
-                    ${currency.name}
-                </td>
-                <td>
-                    ${currency.value}
-                </td>
-            </tr>
+            <#if currency.charCode == "USD" || currency.charCode == "EUR">
+                ${currency.charCode}: ${currency.value}
+            </#if>
         </#list>
-    </table>
+    </h1>
+
+    <hr>
+
+    <select name="first_list" class="classic">
+        <#list currency_list as currency>
+            <option value="${currency.charCode}" <#if currency.charCode == "USD">selected</#if>>
+                ${currency.name}
+            </option>
+        </#list>
+    </select>
+
+    <input class="text-box" type="number" step="0.01" min="0">
+
+    <select name="second_list" class="classic">
+        <#list currency_list as currency>
+            <option value="${currency.charCode}" <#if currency.charCode == "EUR">selected</#if>>
+                ${currency.name}
+            </option>
+        </#list>
+    </select>
+
+    <input class="text-box" type="number" step="0.01" min="0">
+
+    <button>
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front text"> Конвертировать
+  </span>
+    </button>
+
+
+
 </body>
 </html>
