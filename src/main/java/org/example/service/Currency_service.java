@@ -1,7 +1,6 @@
 package org.example.service;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -12,6 +11,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.*;
 
 
@@ -20,6 +21,12 @@ public class Currency_service {
     // ? Currency link
     private static final String CBR_URL = "https://www.cbr.ru/scripts/XML_daily.asp";
     private final List<Currency> currencyList = new ArrayList<>();
+    double input_value = -1;
+    String curr_1;
+    String curr_2;
+    double res_value = -1;
+
+
 
     public void setCurrentCurrency(){
         try {
@@ -50,6 +57,37 @@ public class Currency_service {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void convertCurrency(String currency_1, String currency_2, String input_currency_amount) {
+        double currency_value_1 = -1, currency_value_2 = -1;
+
+        for (Currency currency : currencyList) {
+            if (currency_1.equals(currency.getCharCode()))
+                currency_value_1 = stringToDouble(currency.getValue());
+
+            if (currency_2.equals(currency.getCharCode()))
+                currency_value_2 = stringToDouble(currency.getValue());
+        }
+
+        input_value = stringToDouble(input_currency_amount);
+        curr_1 = currency_1;
+        curr_2 = currency_2;
+        res_value = input_value * (currency_value_1 / currency_value_2);
+
+    }
+
+    private double stringToDouble(String input) {
+        double doubleValue = 0.0;
+        try {
+            NumberFormat format = NumberFormat.getInstance(Locale.FRANCE); // Используем локаль, где запятая - разделитель
+            Number number = format.parse(input);
+            doubleValue = number.doubleValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return doubleValue;
     }
 
 }

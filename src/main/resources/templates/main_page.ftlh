@@ -168,34 +168,41 @@
 
     <hr>
 
-    <select name="first_list" class="classic">
-        <#list currency_list as currency>
-            <option value="${currency.charCode}" <#if currency.charCode == "USD">selected</#if>>
-                ${currency.name}
-            </option>
-        </#list>
-    </select>
+    <form action="/converting" method="post">
+        <select name="first_list" class="classic">
+            <#list currency_list as currency>
+                <option value="${currency.charCode}" <#if currency.charCode == "USD">selected</#if>>
+                    ${currency.name}
+                </option>
+            </#list>
+        </select>
 
-    <input class="text-box" type="number" step="0.01" min="0">
+        <input name="input_currency_amount" class="text-box" type="number" step="0.01" min="0"
+            <#if input_value?? && input_value != -1>
+                value="${input_value}"
+            </#if>
+        >
 
-    <select name="second_list" class="classic">
-        <#list currency_list as currency>
-            <option value="${currency.charCode}" <#if currency.charCode == "EUR">selected</#if>>
-                ${currency.name}
-            </option>
-        </#list>
-    </select>
+        <select name="second_list" class="classic">
+            <#list currency_list as currency>
+                <option value="${currency.charCode}" <#if currency.charCode == "EUR">selected</#if>>
+                    ${currency.name}
+                </option>
+            </#list>
+        </select>
 
-    <input class="text-box" type="number" step="0.01" min="0">
+        <input class="text-box" type="number" step="0.01" min="0" readonly
+           <#if result_input?? && result_input != -1>
+               value="${result_input}"
+           </#if>
+        >
 
-    <button>
-        <span class="shadow"></span>
-        <span class="edge"></span>
-        <span class="front text"> Конвертировать
-  </span>
-    </button>
-
-
+        <button type="submit">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front text"> Конвертировать</span>
+        </button>
+    </form>
 
 </body>
 </html>
