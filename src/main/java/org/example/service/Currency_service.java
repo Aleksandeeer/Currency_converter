@@ -22,8 +22,8 @@ public class Currency_service {
     private static final String CBR_URL = "https://www.cbr.ru/scripts/XML_daily.asp";
     private final List<Currency> currencyList = new ArrayList<>();
     double input_value = -1;
-    String curr_1;
-    String curr_2;
+    String curr_1 = "-1";
+    String curr_2 = "-1";
     double res_value = -1;
 
 

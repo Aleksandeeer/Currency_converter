@@ -17,6 +17,10 @@ public class Controller {
 
     @GetMapping("/")
     public String main_page(Model model){
+//        TODO: выбор в списках по curr_1 и curr_2
+        model.addAttribute("first_currency_selected", cur_service.getCurr_1());
+        model.addAttribute("second_currency_selected", cur_service.getCurr_2());
+
         model.addAttribute("currency_list", cur_service.getCurrencyList());
         model.addAttribute("result_input",
                 Math.round(cur_service.getRes_value() * 10000.0) / 10000.0);
