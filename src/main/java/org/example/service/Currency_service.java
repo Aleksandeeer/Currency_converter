@@ -48,7 +48,8 @@ public class Currency_service {
                         currencyElement.getElementsByTagName("CharCode").item(0).getTextContent(),
                         currencyElement.getElementsByTagName("Nominal").item(0).getTextContent(),
                         currencyElement.getElementsByTagName("Name").item(0).getTextContent(),
-                        currencyElement.getElementsByTagName("Value").item(0).getTextContent()
+                        currencyElement.getElementsByTagName("Value").item(0).getTextContent(),
+                        currencyElement.getElementsByTagName("VunitRate").item(0).getTextContent()
                 );
 
                 currencyList.add(currency);
@@ -60,21 +61,22 @@ public class Currency_service {
     }
 
     public void convertCurrency(String currency_1, String currency_2, String input_currency_amount) {
-        double currency_value_1 = -1, currency_value_2 = -1;
+        double valute_1 = -1, valute_2 = -1;
 
         for (Currency currency : currencyList) {
-            if (currency_1.equals(currency.getCharCode()))
-                currency_value_1 = stringToDouble(currency.getValue());
+            if (currency_1.equals(currency.getCharCode())) {
+                valute_1 = stringToDouble(currency.getVunitRate());
+            }
 
-            if (currency_2.equals(currency.getCharCode()))
-                currency_value_2 = stringToDouble(currency.getValue());
+            if (currency_2.equals(currency.getCharCode())) {
+                valute_2 = stringToDouble(currency.getVunitRate());
+            }
         }
 
         input_value = stringToDouble(input_currency_amount);
         curr_1 = currency_1;
         curr_2 = currency_2;
-        res_value = input_value * (currency_value_1 / currency_value_2);
-
+        res_value = input_value * valute_1 / valute_2;
     }
 
     private double stringToDouble(String input) {

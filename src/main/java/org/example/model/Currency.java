@@ -13,4 +13,5 @@ public class Currency {
     String nominal;
     String name;
     String value;
+    String vunitRate;
 }
