@@ -32,7 +32,7 @@
     </select>
 
     <input name="input_currency_amount" class="text-box" type="number" step="0.01" min="0"
-           style="line-height: 1.5em; padding: 0.5em 3.5em 0.5em 1em;"
+           style="line-height: 1.5em; padding: 0.75em 3.5em 0.6em 1em;"
             <#if input_value?? && input_value != -1>
                 value="${input_value}"
             </#if>
@@ -48,7 +48,7 @@
     </select>
 
     <input class="text-box" type="text" step="0.01" min="0"
-           style="line-height: 1.5em; padding: 0.5em 3.5em 0.5em 1em;"
+           style="line-height: 1.5em; padding: 0.75em 3.5em 0.6em 1em;"
             <#if result_input != -1>
                 value="${result_input?string}"
             </#if>
@@ -59,6 +59,16 @@
         <span class="shadow"></span>
         <span class="edge"></span>
         <span class="front text">Конвертировать</span>
+    </button>
+</form>
+
+<br>
+
+<form action="/currency_quotes" method="get">
+    <button type="submit">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front text">Котировки</span>
     </button>
 </form>
 

@@ -1,0 +1,51 @@
+/* Основные стили для таблицы */
+.currency-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Заголовки таблицы */
+.currency-table th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Ячейки таблицы */
+.currency-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Чередующиеся строки */
+.currency-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Выделение строки при наведении */
+.currency-table tr:hover {
+    background-color: #ddd;
+}
+
+/* Стили для положительных изменений в котировках */
+.currency-table .positive {
+    color: green;
+    font-weight: bold;
+}
+
+/* Стили для отрицательных изменений в котировках */
+.currency-table .negative {
+    color: red;
+    font-weight: bold;
+}
+
+.h1-quotes {
+    text-align: center; color: #3a7800
+}

@@ -17,7 +17,6 @@ public class Controller {
 
     @GetMapping("/")
     public String main_page(Model model){
-//        TODO: выбор в списках по curr_1 и curr_2
         model.addAttribute("first_currency_selected", cur_service.getCurr_1());
         model.addAttribute("second_currency_selected", cur_service.getCurr_2());
 
@@ -35,5 +34,11 @@ public class Controller {
         cur_service.convertCurrency(selectedCurrency_1,
                 selectedCurrency_2, input_value);
         return "redirect:/";
+    }
+
+    @GetMapping("/currency_quotes")
+    public String currency_page(Model model) {
+        model.addAttribute("currency_list", cur_service.getCurrencyList());
+        return "currency_page";
     }
 }
